@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>李宗元 | Zongyuan Li 摄影作品集 | Photography Portfolio</title>
+  <style>
+    :root {
+      --bg: #04070d;
+      --bg-2: #09111f;
+      --text: #f7f8fc;
+      --muted: rgba(247,248,252,0.78);
+      --muted-2: rgba(247,248,252,0.58);
+      --line: rgba(255,255,255,0.12);
+      --panel: rgba(255,255,255,0.06);
+      --panel-2: rgba(255,255,255,0.04);
+      --shadow: 0 20px 70px rgba(0,0,0,0.35);
+      --radius: 26px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, "PingFang SC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 16%, rgba(99,128,255,0.10), transparent 24%),
+        radial-gradient(circle at 88% 8%, rgba(255,255,255,0.05), transparent 18%),
+        linear-gradient(180deg, #03060b 0%, #09101b 48%, #04070d 100%);
+      min-height: 100vh;
+    }
+
+    .stars,
+    .stars::before,
+    .stars::after {
+      position: fixed;
+      inset: 0;
+      content: "";
+      pointer-events: none;
+      z-index: 0;
+      background-repeat: repeat;
+    }
+
+    .stars {
+      background-image:
+        radial-gradient(2px 2px at 30px 50px, rgba(255,255,255,.9) 50%, transparent 55%),
+        radial-gradient(1.6px 1.6px at 120px 140px, rgba(255,255,255,.55) 50%, transparent 55%),
+        radial-gradient(1.1px 1.1px at 210px 80px, rgba(255,255,255,.65) 50%, transparent 55%),
+        radial-gradient(1.4px 1.4px at 280px 190px, rgba(255,255,255,.45) 50%, transparent 55%);
+      background-size: 320px 260px;
+      opacity: .28;
+    }
+
+    .stars::before {
+      background-image:
+        radial-gradient(1px 1px at 80px 110px, rgba(255,255,255,.4) 50%, transparent 55%),
+        radial-gradient(1.3px 1.3px at 170px 30px, rgba(255,255,255,.35) 50%, transparent 55%),
+        radial-gradient(1px 1px at 250px 160px, rgba(255,255,255,.4) 50%, transparent 55%);
+      background-size: 360px 300px;
+      opacity: .22;
+    }
+
+    .container {
+      width: min(1240px, calc(100% - 32px));
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 30;
+      backdrop-filter: blur(18px);
+      background: rgba(4,7,13,0.42);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .nav-inner {
+      width: min(1240px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 14px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-size: 0.92rem;
+      white-space: nowrap;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: .2s ease;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .hero-video-wrap {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .hero-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(0.92) contrast(1.02);
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(3,6,11,0.22) 0%, rgba(3,6,11,0.45) 35%, rgba(3,6,11,0.80) 76%, rgba(3,6,11,0.96) 100%),
+        radial-gradient(circle at 50% 38%, rgba(255,255,255,0.06), transparent 26%);
+      z-index: 1;
+    }
+
+    .hero-content {
+      width: min(1240px, calc(100% - 32px));
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+      padding-top: 72px;
+      text-align: center;
+    }
+
+    .eyebrow {
+      margin: 0 0 18px;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: rgba(247,248,252,0.8);
+    }
+
+    .hero-cn {
+      margin: 0;
+      font-size: clamp(2.4rem, 6vw, 5.6rem);
+      line-height: 0.95;
+      letter-spacing: -0.06em;
+      animation: fadeUp 1s ease both;
+    }
+
+    .hero-en {
+      margin: 10px 0 0;
+      font-size: clamp(1.1rem, 2.5vw, 1.8rem);
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: rgba(247,248,252,0.9);
+      text-transform: uppercase;
+      animation: fadeUp 1.1s ease both;
+    }
+
+    .hero-title-2 {
+      margin: 20px 0 0;
+      font-size: clamp(1rem, 2.2vw, 1.5rem);
+      line-height: 1.7;
+      color: var(--muted);
+      animation: fadeUp 1.2s ease both;
+    }
+
+    .hero-actions {
+      margin-top: 28px;
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeUp 1.3s ease both;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.12);
+      text-decoration: none;
+      font-weight: 600;
+      transition: .22s ease;
+    }
+
+    .btn.primary {
+      background: rgba(255,255,255,0.94);
+      color: #07101b;
+    }
+
+    .btn.secondary {
+      color: var(--text);
+      background: rgba(255,255,255,0.06);
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+
+    .intro,
+    .about,
+    .contact {
+      padding: 44px 0 10px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 18px;
+      margin-bottom: 20px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: clamp(1.7rem, 3vw, 2.5rem);
+      letter-spacing: -0.03em;
+    }
+
+    .section-head p {
+      margin: 0;
+      max-width: 58ch;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.04));
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      padding: 26px;
+    }
+
+    .intro .panel p,
+    .about-grid .panel p,
+    .contact-grid .panel p,
+    .contact-grid .panel a {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.9;
+      text-decoration: none;
+    }
+
+    .categories {
+      padding: 36px 0 10px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .category-tabs {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .tab-btn {
+      min-height: 46px;
+      padding: 0 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
+      cursor: pointer;
+      font: inherit;
+      transition: .22s ease;
+    }
+
+    .tab-btn.active,
+    .tab-btn:hover {
+      background: rgba(255,255,255,0.94);
+      color: #07101b;
+    }
+
+    .gallery-section { display: none; }
+    .gallery-section.active { display: block; }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .photo-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      aspect-ratio: 4 / 5;
+      isolation: isolate;
+    }
+
+    .photo-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .45s ease, opacity .3s ease;
+    }
+
+    .photo-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 45%, rgba(0,0,0,0.45) 100%);
+      opacity: 0;
+      transition: .3s ease;
+      z-index: 1;
+    }
+
+    .photo-card:hover img {
+      transform: scale(1.03);
+    }
+
+    .photo-card:hover::after {
+      opacity: 1;
+    }
+
+    .about-grid,
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 42px 0 58px;
+      color: var(--muted-2);
+      font-size: 0.92rem;
+    }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(2,4,8,0.92);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 22px;
+      z-index: 60;
+    }
+
+    .lightbox.open { display: flex; }
+
+    .lightbox-content {
+      width: min(1120px, 100%);
+      position: relative;
+    }
+
+    .lightbox img {
+      width: 100%;
+      max-height: 84vh;
+      object-fit: contain;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .lightbox-close,
+    .lightbox-nav {
+      position: absolute;
+      width: 46px;
+      height: 46px;
+      border: 0;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.14);
+      color: var(--text);
+      cursor: pointer;
+      font-size: 1.2rem;
+      backdrop-filter: blur(8px);
+    }
+
+    .lightbox-close { top: 12px; right: 12px; }
+    .lightbox-nav.prev { left: 12px; top: 50%; transform: translateY(-50%); }
+    .lightbox-nav.next { right: 12px; top: 50%; transform: translateY(-50%); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 980px) {
+      .gallery-grid,
+      .about-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .container,
+      .nav-inner,
+      .hero-content {
+        width: min(100% - 20px, 1240px);
+      }
+
+      .nav-inner,
+      .section-head {
+        flex-direction: column;
+        align-items: start;
+      }
+
+      .panel { padding: 22px; }
+      .nav-links { gap: 12px; }
+      .hero { min-height: 92vh; }
+    }
+  </style>
+</head>
+<body>
+  <div class="stars"></div>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="brand" href="#home">李宗元 / Zongyuan Li</a>
+      <div class="nav-links">
+        <a href="#home">首页 Home</a>
+        <a href="#categories">作品 Works</a>
+        <a href="#about">关于 About</a>
+        <a href="#contact">联系 Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero" id="home">
+    <div class="hero-video-wrap">
+      <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="images/cover.jpg">
+        <source src="videos/hero.mp4" type="video/mp4" />
+      </video>
+    </div>
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+      <p class="eyebrow">Photography Portfolio / 摄影作品集</p>
+      <h1 class="hero-cn">李宗元</h1>
+      <p class="hero-en">ZONGYUAN LI</p>
+      <p class="hero-title-2">
+        摄影作品集 · 人像｜活动｜人文风光｜实验｜食物<br />
+        Photography Portfolio · Portrait | Events | Humanistic | Experimental | Food
+      </p>
+      <div class="hero-actions">
+        <a class="btn primary" href="#categories">探索作品 Explore</a>
+        <a class="btn secondary" href="#contact">联系 Contact</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="intro">
+      <div class="section-head">
+        <h2>简介 / Introduction</h2>
+        <p>
+          我关注人与环境之间的关系，偏好具有电影感、情绪氛围与叙事感的摄影表达。<br />
+          My work explores the relationship between people and environment, with a focus on cinematic atmosphere and narrative imagery.
+        </p>
+      </div>
+      <div class="panel">
+        <p>
+          通过摄影记录人与世界的相遇。在人像、城市与旅行的场景中，我尝试寻找那些安静却具有力量的瞬间。<br />
+
+          Through photography I document encounters between people and the world.
+          Across portraits, cities, and travel, I look for quiet moments that still carry emotional weight.
+        </p>
+      </div>
+    </section>
+
+    <section class="categories" id="categories">
+      <div class="section-head">
+        <h2>作品分类 / Categories</h2>
+        <p>
+          
+        </p>
+      </div>
+
+      <div class="category-tabs">
+        <button class="tab-btn active" data-tab="style-portrait">风格人像写真 Style Portrait</button>
+        <button class="tab-btn" data-tab="travel-portrait">旅拍人像 Travel Portrait</button>
+        <button class="tab-btn" data-tab="events">活动拍摄 Events</button>
+        <button class="tab-btn" data-tab="dreamcore">梦核实验室 Dreamcore Lab</button>
+        <button class="tab-btn" data-tab="palette">打翻的调色盘 Color Experiments</button>
+        <button class="tab-btn" data-tab="humanistic">人文风光 Humanistic Landscape</button>
+        <button class="tab-btn" data-tab="food">食物 Food</button>
+      </div>
+
+      <div class="gallery-section active" id="style-portrait">
+        <div class="gallery-grid">
+          <!-- 12 images: style-portrait-01.jpg ~ style-portrait-12.jpg -->
+          <article class="photo-card" data-src="images/style-portrait-01.jpg"><img src="images/style-portrait-01.jpg" alt="Style Portrait 1" /></article>
+          <article class="photo-card" data-src="images/style-portrait-02.jpg"><img src="images/style-portrait-02.jpg" alt="Style Portrait 2" /></article>
+          <article class="photo-card" data-src="images/style-portrait-03.jpg"><img src="images/style-portrait-03.jpg" alt="Style Portrait 3" /></article>
+          <article class="photo-card" data-src="images/style-portrait-04.jpg"><img src="images/style-portrait-04.jpg" alt="Style Portrait 4" /></article>
+          <article class="photo-card" data-src="images/style-portrait-05.jpg"><img src="images/style-portrait-05.jpg" alt="Style Portrait 5" /></article>
+          <article class="photo-card" data-src="images/style-portrait-06.jpg"><img src="images/style-portrait-06.jpg" alt="Style Portrait 6" /></article>
+          <article class="photo-card" data-src="images/style-portrait-07.jpg"><img src="images/style-portrait-07.jpg" alt="Style Portrait 7" /></article>
+          <article class="photo-card" data-src="images/style-portrait-08.jpg"><img src="images/style-portrait-08.jpg" alt="Style Portrait 8" /></article>
+          <article class="photo-card" data-src="images/style-portrait-09.jpg"><img src="images/style-portrait-09.jpg" alt="Style Portrait 9" /></article>
+          <article class="photo-card" data-src="images/style-portrait-10.jpg"><img src="images/style-portrait-10.jpg" alt="Style Portrait 10" /></article>
+          <article class="photo-card" data-src="images/style-portrait-11.jpg"><img src="images/style-portrait-11.jpg" alt="Style Portrait 11" /></article>
+          <article class="photo-card" data-src="images/style-portrait-12.jpg"><img src="images/style-portrait-12.jpg" alt="Style Portrait 12" /></article>
+        </div>
+      </div>
+
+      <div class="gallery-section" id="travel-portrait">
+        <div class="gallery-grid">
+          <!-- 6 images: travel-portrait-01.jpg ~ travel-portrait-06.jpg -->
+          <article class="photo-card" data-src="images/travel-portrait-01.jpg"><img src="images/travel-portrait-01.jpg" alt="Travel Portrait 1" /></article>
+          <article class="photo-card" data-src="images/travel-portrait-02.jpg"><img src="images/travel-portrait-02.jpg" alt="Travel Portrait 2" /></article>
+          <article class="photo-card" data-src="images/travel-portrait-03.jpg"><img src="images/travel-portrait-03.jpg" alt="Travel Portrait 3" /></article>
+          <article class="photo-card" data-src="images/travel-portrait-04.jpg"><img src="images/travel-portrait-04.jpg" alt="Travel Portrait 4" /></article>
+          <article class="photo-card" data-src="images/travel-portrait-05.jpg"><img src="images/travel-portrait-05.jpg" alt="Travel Portrait 5" /></article>
+          <article class="photo-card" data-src="images/travel-portrait-06.jpg"><img src="images/travel-portrait-06.jpg" alt="Travel Portrait 6" /></article>
+        </div>
+      </div>
+
+      <div class="gallery-section" id="events">
+        <div class="gallery-grid">
+          <!-- 9 images: events-01.jpg ~ events-09.jpg -->
+          <article class="photo-card" data-src="images/events-01.jpg"><img src="images/events-01.jpg" alt="Events 1" /></article>
+          <article class="photo-card" data-src="images/events-02.jpg"><img src="images/events-02.jpg" alt="Events 2" /></article>
+          <article class="photo-card" data-src="images/events-03.jpg"><img src="images/events-03.jpg" alt="Events 3" /></article>
+          <article class="photo-card" data-src="images/events-04.jpg"><img src="images/events-04.jpg" alt="Events 4" /></article>
+          <article class="photo-card" data-src="images/events-05.jpg"><img src="images/events-05.jpg" alt="Events 5" /></article>
+          <article class="photo-card" data-src="images/events-06.jpg"><img src="images/events-06.jpg" alt="Events 6" /></article>
+          <article class="photo-card" data-src="images/events-07.jpg"><img src="images/events-07.jpg" alt="Events 7" /></article>
+          <article class="photo-card" data-src="images/events-08.jpg"><img src="images/events-08.jpg" alt="Events 8" /></article>
+          <article class="photo-card" data-src="images/events-09.jpg"><img src="images/events-09.jpg" alt="Events 9" /></article>
+        </div>
+      </div>
+
+      <div class="gallery-section" id="dreamcore">
+        <div class="gallery-grid">
+          <!-- 11 images: dreamcore-01.jpg ~ dreamcore-11.jpg -->
+          <article class="photo-card" data-src="images/dreamcore-01.jpg"><img src="images/dreamcore-01.jpg" alt="Dreamcore 1" /></article>
+          <article class="photo-card" data-src="images/dreamcore-02.jpg"><img src="images/dreamcore-02.jpg" alt="Dreamcore 2" /></article>
+          <article class="photo-card" data-src="images/dreamcore-03.jpg"><img src="images/dreamcore-03.jpg" alt="Dreamcore 3" /></article>
+          <article class="photo-card" data-src="images/dreamcore-04.jpg"><img src="images/dreamcore-04.jpg" alt="Dreamcore 4" /></article>
+          <article class="photo-card" data-src="images/dreamcore-05.jpg"><img src="images/dreamcore-05.jpg" alt="Dreamcore 5" /></article>
+          <article class="photo-card" data-src="images/dreamcore-06.jpg"><img src="images/dreamcore-06.jpg" alt="Dreamcore 6" /></article>
+          <article class="photo-card" data-src="images/dreamcore-07.jpg"><img src="images/dreamcore-07.jpg" alt="Dreamcore 7" /></article>
+          <article class="photo-card" data-src="images/dreamcore-08.jpg"><img src="images/dreamcore-08.jpg" alt="Dreamcore 8" /></article>
+          <article class="photo-card" data-src="images/dreamcore-09.jpg"><img src="images/dreamcore-09.jpg" alt="Dreamcore 9" /></article>
+          <article class="photo-card" data-src="images/dreamcore-10.jpg"><img src="images/dreamcore-10.jpg" alt="Dreamcore 10" /></article>
+          <article class="photo-card" data-src="images/dreamcore-11.jpg"><img src="images/dreamcore-11.jpg" alt="Dreamcore 11" /></article>
+        </div>
+      </div>
+
+      <div class="gallery-section" id="palette">
+        <div class="gallery-grid">
+          <!-- 8 images: palette-01.jpg ~ palette-08.jpg -->
+          <article class="photo-card" data-src="images/palette-01.jpg"><img src="images/palette-01.jpg" alt="Palette 1" /></article>
+          <article class="photo-card" data-src="images/palette-02.jpg"><img src="images/palette-02.jpg" alt="Palette 2" /></article>
+          <article class="photo-card" data-src="images/palette-03.jpg"><img src="images/palette-03.jpg" alt="Palette 3" /></article>
+          <article class="photo-card" data-src="images/palette-04.jpg"><img src="images/palette-04.jpg" alt="Palette 4" /></article>
+          <article class="photo-card" data-src="images/palette-05.jpg"><img src="images/palette-05.jpg" alt="Palette 5" /></article>
+          <article class="photo-card" data-src="images/palette-06.jpg"><img src="images/palette-06.jpg" alt="Palette 6" /></article>
+          <article class="photo-card" data-src="images/palette-07.jpg"><img src="images/palette-07.jpg" alt="Palette 7" /></article>
+          <article class="photo-card" data-src="images/palette-08.jpg"><img src="images/palette-08.jpg" alt="Palette 8" /></article>
+        </div>
+      </div>
+
+      <div class="gallery-section" id="humanistic">
+        <div class="gallery-grid">
+          <!-- 15 images: humanistic-01.jpg ~ humanistic-15.jpg -->
+          <article class="photo-card" data-src="images/humanistic-01.jpg"><img src="images/humanistic-01.jpg" alt="Humanistic 1" /></article>
+          <article class="photo-card" data-src="images/humanistic-02.jpg"><img src="images/humanistic-02.jpg" alt="Humanistic 2" /></article>
+          <article class="photo-card" data-src="images/humanistic-03.jpg"><img src="images/humanistic-03.jpg" alt="Humanistic 3" /></article>
+          <article class="photo-card" data-src="images/humanistic-04.jpg"><img src="images/humanistic-04.jpg" alt="Humanistic 4" /></article>
+          <article class="photo-card" data-src="images/humanistic-05.jpg"><img src="images/humanistic-05.jpg" alt="Humanistic 5" /></article>
+          <article class="photo-card" data-src="images/humanistic-06.jpg"><img src="images/humanistic-06.jpg" alt="Humanistic 6" /></article>
+          <article class="photo-card" data-src="images/humanistic-07.jpg"><img src="images/humanistic-07.jpg" alt="Humanistic 7" /></article>
+          <article class="photo-card" data-src="images/humanistic-08.jpg"><img src="images/humanistic-08.jpg" alt="Humanistic 8" /></article>
+          <article class="photo-card" data-src="images/humanistic-09.jpg"><img src="images/humanistic-09.jpg" alt="Humanistic 9" /></article>
+          <article class="photo-card" data-src="images/humanistic-10.jpg"><img src="images/humanistic-10.jpg" alt="Humanistic 10" /></article>
+          <article class="photo-card" data-src="images/humanistic-11.jpg"><img src="images/humanistic-11.jpg" alt="Humanistic 11" /></article>
+          <article class="photo-card" data-src="images/humanistic-12.jpg"><img src="images/humanistic-12.jpg" alt="Humanistic 12" /></article>
+          <article class="photo-card" data-src="images/humanistic-13.jpg"><img src="images/humanistic-13.jpg" alt="Humanistic 13" /></article>
+          <article class="photo-card" data-src="images/humanistic-14.jpg"><img src="images/humanistic-14.jpg" alt="Humanistic 14" /></article>
+          <article class="photo-card" data-src="images/humanistic-15.jpg"><img src="images/humanistic-15.jpg" alt="Humanistic 15" /></article>
+        </div>
+      </div>
+
+      <div class="gallery-section" id="experimental">
+        <div class="gallery-grid">
+          <article class="photo-card" data-src="images/experimental-01.jpg"><img src="images/experimental-01.jpg" alt="Experimental 1" /></article>
+          <article class="photo-card" data-src="images/experimental-02.jpg"><img src="images/experimental-02.jpg" alt="Experimental 2" /></article>
+          <article class="photo-card" data-src="images/experimental-03.jpg"><img src="images/experimental-03.jpg" alt="Experimental 3" /></article>
+          <article class="photo-card" data-src="images/experimental-04.jpg"><img src="images/experimental-04.jpg" alt="Experimental 4" /></article>
+          <article class="photo-card" data-src="images/experimental-05.jpg"><img src="images/experimental-05.jpg" alt="Experimental 5" /></article>
+          <article class="photo-card" data-src="images/experimental-06.jpg"><img src="images/experimental-06.jpg" alt="Experimental 6" /></article>
+        </div>
+      </div>
+
+      <div class="gallery-section" id="food">
+        <div class="gallery-grid">
+          <!-- 1 image: food-01.jpg -->
+          <article class="photo-card" data-src="images/food-01.jpg"><img src="images/food-01.jpg" alt="Food" /></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="about" id="about">
+      <div class="section-head">
+        <h2>关于 / About</h2>
+        <p>
+          
+        </p>
+      </div>
+      <div class="about-grid">
+        <div class="panel">
+          <p>
+            我是一名摄影创作者，关注人与城市空间之间的关系，偏好电影感构图、安静情绪与具有叙事感的画面。
+            I am a photographer interested in the relationship between people and urban space, with a focus on cinematic composition and quiet emotional atmosphere.
+          </p>
+        </div>
+        <div class="panel">
+          <p>
+            作品分类包含人像、活动、人文风光、实验与食物，这些内容共同构成一个更混合、更开放的视觉系统。
+            The categories include portrait, events, humanistic landscape, experimental work, and food, forming a more mixed and open visual system.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <div class="section-head">
+        <h2>联系 / Contact</h2>
+        <p>
+          
+        </p>
+      </div>
+      <div class="contact-grid">
+        <div class="panel">
+          <p>
+            <strong>Email</strong><br />
+            <a href="mailto:zongyuanmuzi@gmail.com">zongyuanmuzi@gmail.com</a>
+          </p>
+        </div>
+        <div class="panel">
+          <p>
+            <strong>Location</strong><br />
+            Belgrade
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © <span id="year"></span> 李宗元 · Zongyuan Li · Photography Portfolio
+  </footer>
+
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <div class="lightbox-content">
+      <button class="lightbox-close" id="closeLightbox" aria-label="Close">✕</button>
+      <button class="lightbox-nav prev" id="prevBtn" aria-label="Previous">‹</button>
+      <img id="lightboxImage" src="" alt="Expanded photograph" />
+      <button class="lightbox-nav next" id="nextBtn" aria-label="Next">›</button>
+    </div>
+  </div>
+
+  <script>
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const gallerySections = document.querySelectorAll('.gallery-section');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImage = document.getElementById('lightboxImage');
+    const closeLightbox = document.getElementById('closeLightbox');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    let currentCards = [];
+    let currentIndex = 0;
+
+    function getActiveCards() {
+      const activeSection = document.querySelector('.gallery-section.active');
+      return Array.from(activeSection.querySelectorAll('.photo-card'));
+    }
+
+    function bindCards() {
+      currentCards = getActiveCards();
+      currentCards.forEach((card, index) => {
+        card.onclick = () => openLightbox(index);
+      });
+    }
+
+    function openLightbox(index) {
+      currentCards = getActiveCards();
+      currentIndex = index;
+      const card = currentCards[currentIndex];
+      lightboxImage.src = card.dataset.src;
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeBox() {
+      lightbox.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function showNext(step) {
+      currentCards = getActiveCards();
+      currentIndex = (currentIndex + step + currentCards.length) % currentCards.length;
+      lightboxImage.src = currentCards[currentIndex].dataset.src;
+    }
+
+    tabButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const target = button.dataset.tab;
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        gallerySections.forEach(section => section.classList.remove('active'));
+        button.classList.add('active');
+        document.getElementById(target).classList.add('active');
+        bindCards();
+      });
+    });
+
+    closeLightbox.addEventListener('click', closeBox);
+    prevBtn.addEventListener('click', (e) => { e.stopPropagation(); showNext(-1); });
+    nextBtn.addEventListener('click', (e) => { e.stopPropagation(); showNext(1); });
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeBox();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('open')) return;
+      if (e.key === 'Escape') closeBox();
+      if (e.key === 'ArrowLeft') showNext(-1);
+      if (e.key === 'ArrowRight') showNext(1);
+    });
+
+    bindCards();
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
